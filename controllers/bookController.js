@@ -5,37 +5,53 @@ export const fetchAllBooks = async (req, res) =>{
     res.status(200).json(books);
 }
 
- export const CreateBook = async (req, res) =>{
+export const createBook = async (req, res) =>{
     console.log(req);
     const {name, author} = req.body;
     const book = {name, author};
 
     try{
-        const bookId = await bookService.CreateBook(book);
+        const bookId = await bookService.createBook(book);
         res.status(200).json({
             success: true,
             message: bookId
-        })
+        });
     }catch(e){
         console.log(e);
         res.status(500).json({
-            error: "Internal Service Error"
+            error: `${e.message || "Internal Server Error"}`
         });
     }
-}  
+}
 
-//Update
 export const editBook = async (req, res) =>{
     const {name, author} = req.body;
     const { id } = req.params;
     const book = {id: parseInt(id), name, author};
 
     try{
-        const updateBook = await bookService.updateBook(book);
+        const updatedBook = await bookService.updateBook(book);
         res.status(200).json({
             success: true,
-            message: updateBook
-        })
+            message: updatedBook
+        });
+    }catch(e){
+        console.log(e);
+        res.status(500).json({
+            error: "Internal Server Error"
+        });
+    }
+}
+
+export const deleteBook = async (req, res) =>{
+    const { id } = req.params;
+
+    try{
+        const deletedBook = await bookService.deleteBook(parseInt(id));
+        res.status(200).json({
+            success: true,
+            message: deletedBook
+        });
     }catch(e){
         console.log(e);
         res.status(500).json({
