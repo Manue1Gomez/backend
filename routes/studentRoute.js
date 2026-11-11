@@ -3,6 +3,7 @@ import express from "express";
 
 const studentRoute = express.Router();
 
-studentRoute.get('/', studentController.fetchAllStudents);
+studentRoute.get('/all', studentController.fetchAllStudents);
+studentRoute.post('/', studentController.CreateStudent);
 
 export default studentRoute;

@@ -5,6 +5,7 @@ import studentRoute from './routes/studentRoute.js';
 
 //create express app
 const app = express();
+app.use(express.json());
 
 app.use('/book', bookRoutes);
 app.use('/student', studentRoute);
